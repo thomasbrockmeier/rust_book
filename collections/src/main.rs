@@ -1,5 +1,31 @@
 fn main() {
     descriptives::main();
+    pig_latin::main();
+}
+
+pub mod pig_latin {
+    pub fn main() {
+        let words = ["apple", "first", "second", "flops"];
+        for word in words.iter() {
+            println!("{}", latinify(&word));
+        }
+    }
+
+    fn latinify(word: &str) -> String {
+        let mut out = String::new();
+        let first_char = word.chars().next().unwrap();
+        match first_char {
+            'a' | 'e' | 'i' | 'o' | 'u' => {
+                out.push_str(&word);
+                out.push_str("-hay");
+            }
+            _ => {
+                out.push_str(&word[1..]);
+                out.push_str(&format!("-{}ay", &first_char));
+            }
+        };
+        out
+    }
 }
 
 pub mod descriptives {
